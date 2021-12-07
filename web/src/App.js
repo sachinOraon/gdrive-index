@@ -15,21 +15,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const cookies = parseCookies(document.cookie);
-      if (!cookies.basicauth) {
-        setLoading(false);
-        setLoggedIn(false);
-        return;
-      }
-      setLoading(true);
-      const host = window.location.host === "localhost:3000" ? "http://localhost:3001" : "";
-      const req = await fetch(`${host}/checkAuth?basicauth=${cookies.basicauth}`).then((res) => res.json());
-      if (req["auth"]) {
-        setLoggedIn(true);
-      } else {
-        document.cookie = `basicauth=`;
-        setLoggedIn(false);
-      }
+      setLoggedIn(true);
       setLoading(false);
     })();
   }, []);
