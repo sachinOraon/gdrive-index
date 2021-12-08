@@ -35,4 +35,4 @@ server.all("*", (req, res) => res.sendFile("web/build/index.html", { root: __dir
 
 server.listen(PORT, () => logger(`> Listining on http://localhost:${PORT}`));
 
-Logger(`App Started`);
+logger(`App Started`);
