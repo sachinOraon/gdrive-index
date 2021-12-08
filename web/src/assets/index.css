@@ -175,8 +175,24 @@ button,
 }
 button.primary,
 .button.primary {
-  color: #5888ff;
-  border: 1px solid #5888ff;
+  color: #7cb342;
+  border: 1px solid #7cb342;
+}
+.button.vlc {
+  color: #f27f00;
+  border: 1px solid #f27f00;
+}
+.button.mxp {
+  color: #3c8cf0;
+  border: 1px solid #3c8cf0;
+}
+.button.npl {
+  color: #33d2bf;
+  border: 1px solid #33d2bf;
+}
+.button.idm {
+  color: #0c84c2;
+  border: 1px solid #0c84c2;
 }
 button > .btn-icon:not(:last-child),
 .button > .btn-icon:not(:last-child) {

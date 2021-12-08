@@ -22,7 +22,7 @@ export default function File() {
   const vlcLink = `vlc://${fileLink}`;
   const mxpLink = `intent:${fileLink}#Intent;package=com.mxtech.videoplayer.ad;S.title=${name};end`;
   const npLink = `nplayer-${fileLink}`;
-  const idmLink = `intent:${fileLink}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${name};end`;
+  const idmLink = `intent:${window.location.origin}/api/file/download/${name}?id=${id}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${name};end`;
 
   return (
     <div className="drive-file" id={id}>
@@ -39,31 +39,31 @@ export default function File() {
           <span className="btn-icon">
             <ion-icon name="download-outline" />
           </span>
-          <span className="btn-text">Download now</span>
+          <span className="btn-text">Download</span>
         </a>
-        <a href={vlcLink} className="button primary">
+        <a href={vlcLink} className="button vlc">
           <span className="btn-icon">
-            <ion-icon name="prism-outline" />
+            <ion-icon name="flame-outline" />
           </span>
           <span className="btn-text">Open in VLC</span>
         </a>
-        <a href={mxpLink} className="button primary">
+        <a href={mxpLink} className="button mxp">
           <span className="btn-icon">
             <ion-icon name="play-circle-outline" />
           </span>
           <span className="btn-text">Open in MX Player</span>
         </a>
-        <a href={npLink} className="button primary">
+        <a href={npLink} className="button npl">
           <span className="btn-icon">
             <ion-icon name="shapes-outline" />
           </span>
           <span className="btn-text">Open in nPlayer</span>
         </a>
-        <a href={idmLink} className="button primary">
+        <a href={idmLink} className="button idm">
           <span className="btn-icon">
             <ion-icon name="cloud-download-outline" />
           </span>
-          <span className="btn-text">Download in IDM</span>
+          <span className="btn-text">Download in 1DM</span>
         </a>
         <button onClick={copyStreamableLink}>
           <span className="btn-icon">
