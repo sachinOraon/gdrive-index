@@ -18,11 +18,11 @@ export default function File() {
 
   const { id, name, modifiedTime, iconLink, mimeType, size, hasThumbnail, thumbnailLink } = data;
 
-  const fileLink = `${window.location.origin}/api/file/download/${id}`;
+  const fileLink = `https://in.tobot.workers.dev/file?id=${id}`;
   const vlcLink = `vlc://${fileLink}`;
   const mxpLink = `intent:${fileLink}#Intent;package=com.mxtech.videoplayer.ad;S.title=${name};end`;
   const npLink = `nplayer-${fileLink}`;
-  const idmLink = `intent:${window.location.origin}/api/file/download/${name}?id=${id}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${name};end`;
+  const idmLink = `intent:${fileLink}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${name};end`;
 
   return (
     <div className="drive-file" id={id}>
