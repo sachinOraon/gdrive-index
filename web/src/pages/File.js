@@ -10,7 +10,7 @@ export default function File() {
   const fileId = match ? match.params.fileId : "";
   const { data, error } = useSwr(`/api/file/${fileId}`, (url) => fetch(url).then((res) => res.json()));
 
-  const copyStreamableLink = () => copyToClipboard(`${window.location.origin}/api/file/download/${fileId}`);
+  const copyStreamableLink = () => copyToClipboard(`https://cdn.movies-mca.workers.dev/file?id=${fileId}`);
   const copyShareLink = () => copyToClipboard(`${window.location.origin}/file/${fileId}`);
 
   if (!data && !error) return <div className="loading-div" />;
@@ -22,7 +22,6 @@ export default function File() {
   const vlcLink = `vlc://${fileLink}`;
   const mxpLink = `intent:${fileLink}#Intent;package=com.mxtech.videoplayer.ad;S.title=${name};end`;
   const npLink = `nplayer-${fileLink}`;
-  const idmLink = `intent:${fileLink}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${name};end`;
 
   return (
     <div className="drive-file" id={id}>
@@ -39,7 +38,13 @@ export default function File() {
           <span className="btn-icon">
             <ion-icon name="download-outline" />
           </span>
-          <span className="btn-text">Download</span>
+          <span className="btn-text">Download 1</span>
+        </a>
+        <a href={fileLink} className="button dwnld">
+          <span className="btn-icon">
+            <ion-icon name="cloud-download-outline" />
+          </span>
+          <span className="btn-text">Download 2</span>
         </a>
         <a href={vlcLink} className="button vlc">
           <span className="btn-icon">
@@ -58,12 +63,6 @@ export default function File() {
             <ion-icon name="shapes-outline" />
           </span>
           <span className="btn-text">Open in nPlayer</span>
-        </a>
-        <a href={idmLink} className="button idm">
-          <span className="btn-icon">
-            <ion-icon name="cloud-download-outline" />
-          </span>
-          <span className="btn-text">Download in 1DM</span>
         </a>
         <button onClick={copyStreamableLink}>
           <span className="btn-icon">
