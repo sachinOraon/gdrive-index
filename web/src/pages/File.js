@@ -9,20 +9,18 @@ export default function File() {
   const match = useRouteMatch("/file/:fileId");
   const fileId = match ? match.params.fileId : "";
   const { data, error } = useSwr(`/api/file/${fileId}`, (url) => fetch(url).then((res) => res.json()));
-
-  const copyStreamableLink = () => copyToClipboard(`https://cdn.movies-mca.workers.dev/file?id=${fileId}`);
   const copyShareLink = () => copyToClipboard(`${window.location.origin}/file/${fileId}`);
 
   if (!data && !error) return <div className="loading-div" />;
   if (error) return <h4 style={{ textAlign: "center", color: "red" }}>Cannot find the file</h4>;
 
   const { id, name, modifiedTime, iconLink, mimeType, size, hasThumbnail, thumbnailLink } = data;
-
-  const fileLink = `https://in.tobot.workers.dev/file?id=${id}`;
+  const copyStreamableLink = () => copyToClipboard(`https://cdn.movies-mca.workers.dev/${name}?id=${id}`);
+  const fileLink = `https://in.tobot.workers.dev/${name}?id=${id}`;
   const vlcLink = `vlc://${fileLink}`;
   const mxpLink = `intent:${fileLink}#Intent;package=com.mxtech.videoplayer.ad;S.title=${name};end`;
   const npLink = `nplayer-${fileLink}`;
-
+  
   return (
     <div className="drive-file" id={id}>
       {hasThumbnail && <img className="drive-file-thumb" src={thumbnailLink} alt={name} />}
@@ -52,7 +50,7 @@ export default function File() {
           </span>
           <span className="btn-text">Open in VLC</span>
         </a>
-        <a href={mxpLink} className="button mxp">
+        <a href={mxpLink} className="button mxp" referrerpolicy="same-origin">
           <span className="btn-icon">
             <ion-icon name="play-circle-outline" />
           </span>
