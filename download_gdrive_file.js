@@ -1,6 +1,7 @@
 /*
 A simple Cloudflare web worker to download Google Drive file.
 Just pass the gdrive file Id like this: https://abc.workers.dev/file?id=<fileId>
+This code is extracted from https://gitlab.com/ParveenBhadooOfficial/Google-Drive-Index/-/tree/master/worker/worker-multiple-drives.js
 */
 const authConfig = {
   "client_id": "",
@@ -68,11 +69,27 @@ class googleDrive {
     };
   }
 
+  sleep(ms) {
+    return new Promise(function(resolve, reject) {
+      let i = 0;
+      setTimeout(function() {
+        i++;
+        if (i >= 2) reject(new Error('i>=2'));
+        else resolve(i);
+      }, ms);
+    });
+  }
+
   async download(id, range = '', inline = false) {
     let url = `https://www.googleapis.com/drive/v3/files/${id}?alt=media`;
     let requestOption = await this.requestOption();
     requestOption.headers['Range'] = range;
-    let response = await fetch(url, requestOption);
+    let response;
+    for (let i = 0; i < 3; i++) {
+      response = await fetch(url, requestOption);
+      if (response.status === 200) { break; }
+      await this.sleep(800 * (i + 1));
+    }
     if (response.ok) {
       const {headers} = response = new Response(response.body, response);
       headers.append('Access-Control-Allow-Origin', '*');
