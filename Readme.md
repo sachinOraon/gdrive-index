@@ -4,10 +4,13 @@ This lets you deploy a index server on heroku which serves files from your gdriv
 As teamdrive links cannot be share with people out of the drive this will let you do it and this dosent have a limit on downloads from drive.
 
 ## Deploying
+### Using Docker
+1. Edit Dockerfile and fill in the details like CLIENT_ID, CLIENT_SECRET, etc.
+2. Create docker image using this command: `docker build . -t gdrive-index:latest`
+3. Run the container: `docker run --name=gindex --restart=unless-stopped -d -p 8080:3000 gdrive-index:latest`
 
+### Using Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sachinOraon/gdrive-index)
-
-## How to setup
 
 New way:
 
